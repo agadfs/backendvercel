@@ -17,6 +17,7 @@ const User = require('./models/User');
 const Session = require("./models/Session");
 const Inventory = require("./models/Inventory");
 const Item = require("./models/Item");
+const npcs = require("./models/Npc");
 
 
 
@@ -266,6 +267,19 @@ app.post('/inventory/updateitems', async (req, res) => {
   }
 });
 
+
+app.post("/npcscreate", async (req, res) => {
+  
+  try {
+    const newItem = new npcs(req.body);
+    console.log(newItem)
+    await newItem.save();
+    res.status(201).json(newItem);
+  } catch (error) {
+    console.error("Error creating Item:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
 
 const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => {

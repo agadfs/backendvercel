@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 // Define the User schema
-const InventorySchema = new mongoose.Schema({
+const npcsSchema = new mongoose.Schema({
   ownerId: {
     type: String,
     required: true
@@ -39,10 +39,10 @@ const InventorySchema = new mongoose.Schema({
   }
 
   
-},{ collection: 'Inventory' });
+},{ collection: 'npcs' });
 
 
-const Inventory = mongoose.model("Inventory", InventorySchema);
+const npcs = mongoose.model("npcs", npcsSchema);
 
 
-module.exports = Inventory;
+module.exports = npcs;
