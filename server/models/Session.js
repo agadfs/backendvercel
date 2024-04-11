@@ -10,6 +10,10 @@ const sessionSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  bookrpg: {
+    type: String,
+    required: false
+  },
   players: {
     type: Array,
     required: false,
