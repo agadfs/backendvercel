@@ -36,6 +36,10 @@ const npcsSchema = new mongoose.Schema({
   NpcBook:{
     type: String,
     required: false
+  },
+  idtrack:{
+    type: String,
+    required: false
   }
 
   
