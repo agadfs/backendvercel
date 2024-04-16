@@ -27,6 +27,18 @@ const userSchema = new mongoose.Schema({
     type: Array,
     required:false
   },
+  premium: { 
+    type: Boolean,
+    required:false
+  },
+  creator: { 
+    type: Boolean,
+    required:false
+  },
+  Admin: { 
+    type: Boolean,
+    required:false
+  },
 
   
 });
