@@ -23,6 +23,11 @@ const userSchema = new mongoose.Schema({
     type: Date,
     required:false
   },
+  charCreate: { 
+    type: Array,
+    required:false
+  },
+
   
 });
 
