@@ -350,8 +350,10 @@ app.post("/manageFriendRequest/:id/:decision/:targetedid", async (req, res) => {
     
     const session = await User.findByIdAndUpdate(sessionId, { $pull:{ FriendsRequests: {idrequest: targetedId}}}, { new: true});
     if(decision === 'accept'){
-      const befriendof = await User.findByIdAndUpdate(targetedId, { $push:{ Friends: sessionId}}, { new: true});
-      const addfriend = await User.findByIdAndUpdate(sessionId, { $push:{ Friends: targetedId}}, { new: true});
+      let friendname = await User.findById(targetedId);
+      let yourname = await User.findById(sessionId);
+      const befriendof = await User.findByIdAndUpdate(targetedId, { $push:{ Friends: {friendid: sessionId, friendsname:yourname.username}}}, { new: true});
+      const addfriend = await User.findByIdAndUpdate(sessionId, { $push:{ Friends: {friendid: targetedId, friendsname:friendname.username}}}, { new: true});
     }
 
 
