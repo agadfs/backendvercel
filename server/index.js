@@ -348,7 +348,7 @@ app.post("/manageFriendRequest/:id/:targetedid", async (req, res) => {
 
     const targetedId = req.params.targetedid;
     
-    const session = await User.findByIdAndUpdate(sessionId, { $pullAll:{FriendsRequests: [{idrequest: targetedId}] }}, { new: true});
+    const session = await User.findByIdAndUpdate(sessionId, { $pullAll:{FriendsRequests}}, { new: true});
     console.log(targetedId)
     console.log(session)
     console.log(sessionId)
