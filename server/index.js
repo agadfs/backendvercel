@@ -354,7 +354,7 @@ app.post("/manageFriendRequest/:id/:decision/:targetedid", async (req, res) => {
       return res.status(404).json({ error: "Session not found" });
     }
     
-    res.status(200).json(session, targetedId);
+    res.status(200).json(session, targetedId, decision);
   } catch (error) {
     console.error("Error updating session:", error);
     res.status(500).json({ error: "Internal server error" });
