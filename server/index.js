@@ -348,13 +348,13 @@ app.post("/manageFriendRequest/:id/:decision/:targetedid", async (req, res) => {
     const decision = req.params.decision;
     const targetedId = req.params.targetedid;
     
-    const session = await User.findByIdAndUpdate(sessionId, { $pullAll:{FriendsRequests: [{idrequest: targetedId}] }}, { new: true});
+    const session = await User.findByIdAndUpdate(sessionId, { $pullAll:{FriendsRequests}}, { new: true});
 
     if (!session) {
       return res.status(404).json({ error: "Session not found" });
     }
     
-    res.status(200).json(session);
+    res.status(200).json(targetedId);
   } catch (error) {
     console.error("Error updating session:", error);
     res.status(500).json({ error: "Internal server error" });
