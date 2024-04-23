@@ -39,6 +39,18 @@ const userSchema = new mongoose.Schema({
     type: Boolean,
     required:false
   },
+  Friends: {
+    type: Array,
+    required:false
+  },
+  FriendsRequests: {
+    type: Array,
+    required:false
+  },
+  BlockedPeople: {
+    type: Array,
+    required:false
+  }
 
   
 });
