@@ -13,6 +13,10 @@ const chatsSchema = new mongoose.Schema({
   lasttimeonline:{
     type:Array,
     required:false
+  },
+  idseenmsg:{
+    type:Array,
+    required:false
   }
 
   
