@@ -328,7 +328,7 @@ app.post("/sendFriendRequest/:id", async (req, res) => {
   try {
     const sessionId = req.params.id;
     const updateData = req.body; 
-    const session = await npcs.findByIdAndUpdate(sessionId, { $set: updateData }, { new: true, upsert: true });
+    const session = await npcs.findByIdAndUpdate(sessionId, { $set: updateData });
 
     if (!session) {
       return res.status(404).json({ error: "Session not found" });
