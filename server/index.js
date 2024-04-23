@@ -334,7 +334,7 @@ app.post("/sendFriendRequest/:id", async (req, res) => {
       return res.status(404).json({ error: "Session not found" });
     }
     
-    res.status(200).json(session);
+    res.status(200).json(sessionId);
   } catch (error) {
     console.error("Error updating session:", error);
     res.status(500).json({ error: "Internal server error" });
