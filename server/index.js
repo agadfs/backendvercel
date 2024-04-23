@@ -390,6 +390,34 @@ app.post("/loadmessages/:yourid/:friendid", async (req, res) => {
   }
 });
 
+app.post("/sendmessage/:yourid/:friendid", async (req, res) => {
+  try {
+    const requserid = req.params.yourid;
+    const frienduserid = req.params.friendid;
+    const message = req.body.message; 
+
+    
+    let chat = await chats.findOne({ users: { $all: [requserid, frienduserid] } });
+
+   
+    if (!chat) {
+      chat = new chats({ users: [requserid, frienduserid], usersmessages: [message] });
+    } else {
+     
+      chat.usersmessages.push(message);
+    }
+
+   
+    await chat.save();
+
+    
+    res.status(200).json(chat.usersmessages);
+  } catch (error) {
+    console.error("Error sending message:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
 const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
