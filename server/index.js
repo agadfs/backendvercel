@@ -18,6 +18,7 @@ const Session = require("./models/Session");
 const Inventory = require("./models/Inventory");
 const Item = require("./models/Item");
 const npcs = require("./models/Npc");
+const chats = require("./models/Chats");
 
 
 
@@ -364,6 +365,27 @@ app.post("/manageFriendRequest/:id/:decision/:targetedid", async (req, res) => {
     res.status(200).json(session, targetedId, decision);
   } catch (error) {
     console.error("Error updating session:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+app.post("/loadmessages/:yourid/:friendid", async (req, res) => {
+  try {
+    const requserid = req.params.yourid;
+    const frienduserid = req.params.friendid;
+
+   
+    let chat = await chats.findOne({ users: { $all: [requserid, frienduserid] } });
+
+    if (!chat) {
+      chat = new chats({ users: [requserid, frienduserid], usersmessages: [] });
+      await chat.save();
+    }
+
+    // Send the chat's messages
+    res.status(200).json(chat.usersmessages);
+  } catch (error) {
+    console.error("Error loading messages:", error);
     res.status(500).json({ error: "Internal server error" });
   }
 });

@@ -4,7 +4,7 @@ const mongoose = require("mongoose");
 const chatsSchema = new mongoose.Schema({
   users: {
     type: Array,
-    required: false
+    required: false,
   },
   usersmessages:{
     type:Array,
