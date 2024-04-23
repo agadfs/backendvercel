@@ -323,6 +323,23 @@ app.get("/npcsGET", async (req, res) => {
     res.status(500).json({ error: "Internal server error" });
   }
 });
+app.post("/sendFriendRequest/:id", async (req, res) => {
+  
+  try {
+    const sessionId = req.params.id;
+    const updateData = req.body; 
+    const session = await npcs.findByIdAndUpdate(sessionId, { $set: updateData }, { new: true, upsert: true });
+
+    if (!session) {
+      return res.status(404).json({ error: "Session not found" });
+    }
+    
+    res.status(200).json(session);
+  } catch (error) {
+    console.error("Error updating session:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
 
 const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => {
