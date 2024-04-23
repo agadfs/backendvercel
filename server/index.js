@@ -341,6 +341,26 @@ app.post("/sendFriendRequest/:id", async (req, res) => {
   }
 });
 
+app.post("/manageFriendRequest/:id/:decision/:targetedid", async (req, res) => {
+  
+  try {
+    const sessionId = req.params.id;
+    const decision = req.params.decision;
+    const targetId = req.params.targetedid;
+
+    const session = await User.findByIdAndUpdate(sessionId, { $pullAll:{FriendsRequests: [{idrequest: targetId}] }}, { new: true});
+
+    if (!session) {
+      return res.status(404).json({ error: "Session not found" });
+    }
+    
+    res.status(200).json(session);
+  } catch (error) {
+    console.error("Error updating session:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
 const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
