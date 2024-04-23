@@ -349,6 +349,11 @@ app.post("/manageFriendRequest/:id/:decision/:targetedid", async (req, res) => {
     const targetedId = req.params.targetedid;
     
     const session = await User.findByIdAndUpdate(sessionId, { $pull:{ FriendsRequests: {idrequest: targetedId}}}, { new: true});
+    if(decision === 'accept'){
+      const befriendof = await User.findByIdAndUpdate(targetedId, { $push:{ Friends: sessionId}}, { new: true});
+      const addfriend = await User.findByIdAndUpdate(sessionId, { $push:{ Friends: targetedId}}, { new: true});
+    }
+
 
     if (!session) {
       return res.status(404).json({ error: "Session not found" });
