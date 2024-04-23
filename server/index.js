@@ -341,15 +341,15 @@ app.post("/sendFriendRequest/:id", async (req, res) => {
   }
 });
 
-app.post("/manageFriendRequest/:id/:targetedid", async (req, res) => {
+app.post("/manageFriendRequest/:id/:decision/:targetedid", async (req, res) => {
   
   try {
     const sessionId = req.params.id;
-
+    const decision = req.params.decision;
     const targetedId = req.params.targetedid;
     
     const session = await User.findByIdAndUpdate(sessionId, { $pullAll:{FriendsRequests: [{idrequest: targetedId}] }}, { new: true});
-    
+
     if (!session) {
       return res.status(404).json({ error: "Session not found" });
     }
