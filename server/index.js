@@ -19,6 +19,7 @@ const Inventory = require("./models/Inventory");
 const Item = require("./models/Item");
 const npcs = require("./models/Npc");
 const chats = require("./models/Chats");
+const Maps = require("./models/Maps");
 
 
 
@@ -414,6 +415,30 @@ app.post("/sendmessage/:yourid/:friendid", async (req, res) => {
     res.status(200).json(chat.usersmessages);
   } catch (error) {
     console.error("Error sending message:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+app.post("/mapcreate", async (req, res) => {
+  
+  try {
+    const newItem = new Maps(req.body);
+    console.log(newItem)
+    await newItem.save();
+    res.status(201).json(newItem);
+  } catch (error) {
+    console.error("Error creating Map:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+
+app.get("/mapget", async (req, res) => {
+  try {
+    const sessions = await Item.find();
+    res.status(200).json(sessions);
+  } catch (error) {
+    console.error("Error fetching sessions:", error);
     res.status(500).json({ error: "Internal server error" });
   }
 });
