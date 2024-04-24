@@ -435,7 +435,10 @@ app.post("/mapcreate", async (req, res) => {
 
 app.get("/mapget", async (req, res) => {
   try {
-    const sessions = await Item.find();
+    const name = req.body.name;
+    const url = req.body.name;
+    const id = req.body.userid;
+    const sessions = await Maps.findOne({ name: name, url: url, id: id });
     res.status(200).json(sessions);
   } catch (error) {
     console.error("Error fetching sessions:", error);
