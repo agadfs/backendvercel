@@ -435,9 +435,9 @@ app.post("/mapcreate", async (req, res) => {
 
 app.get("/mapget", async (req, res) => {
   try {
-    const name = req.params.name;
-    const url = req.params.name;
-    const id = req.params.userid;
+    const name = req.query.name;
+    const url = req.query.url;
+    const id = req.query.id;
     const sessions = await Maps.findOne({ name: name, url: url, id: id });
     res.status(200).json(sessions);
   } catch (error) {
