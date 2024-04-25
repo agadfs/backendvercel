@@ -420,11 +420,15 @@ app.post("/sendmessage/:yourid/:friendid", async (req, res) => {
 });
 
 app.post("/mapcreate", async (req, res) => {
-  
   try {
+   
+    await Maps.findOneAndDelete(req.body);
+
+   
     const newItem = new Maps(req.body);
-    console.log(newItem)
+    console.log(newItem);
     await newItem.save();
+
     res.status(201).json(newItem);
   } catch (error) {
     console.error("Error creating Map:", error);
