@@ -18,6 +18,10 @@ const MapsSchema = new mongoose.Schema({
     type: String,
     required: false
   },
+  blockscale: {
+    type: String,
+    required: false
+  },
   spawners: {
     type: Array,
     required: false
